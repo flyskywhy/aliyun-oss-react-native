@@ -107,6 +107,7 @@ public class AliyunUploadManager {
                 WritableMap onProgressValueData = Arguments.createMap();
                 onProgressValueData.putString("currentSize", str_currentSize);
                 onProgressValueData.putString("totalSize", str_totalSize);
+                onProgressValueData.putString("id", objectKey);
                 context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                         .emit("uploadProgress", onProgressValueData);
             }
@@ -179,6 +180,7 @@ public class AliyunUploadManager {
                 WritableMap onProgressValueData = Arguments.createMap();
                 onProgressValueData.putString("currentSize", str_currentSize);
                 onProgressValueData.putString("totalSize", str_totalSize);
+                onProgressValueData.putString("id", objectKey);
                 context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                         .emit("uploadProgress", onProgressValueData);
             }
@@ -224,6 +226,7 @@ public class AliyunUploadManager {
                 WritableMap onProgressValueData = Arguments.createMap();
                 onProgressValueData.putString("currentSize", str_currentSize);
                 onProgressValueData.putString("totalSize", str_totalSize);
+                onProgressValueData.putString("id", objectKey);
                 context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                         .emit("uploadProgress", onProgressValueData);
             }

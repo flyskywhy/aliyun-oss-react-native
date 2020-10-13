@@ -32,7 +32,8 @@ RCT_REMAP_METHOD(asyncUpload, asyncUploadWithBucketName:(NSString *)bucketName o
             if (self.hasListeners) {
                 [self sendEventWithName:@"uploadProgress" body:@{@"bytesSent":[NSString stringWithFormat:@"%lld",bytesSent],
                                                                  @"currentSize": [NSString stringWithFormat:@"%lld",totalByteSent],
-                                                                 @"totalSize": [NSString stringWithFormat:@"%lld",totalBytesExpectedToSend]}];
+                                                                 @"totalSize": [NSString stringWithFormat:@"%lld",totalBytesExpectedToSend],
+                                                                 @"id": objectKey}];
             }
         };
         
