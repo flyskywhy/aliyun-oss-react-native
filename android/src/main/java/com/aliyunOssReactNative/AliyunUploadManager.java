@@ -70,7 +70,7 @@ public class AliyunUploadManager {
      * @param options
      * @param promise
      */
-    public void asyncUpload(final ReactContext context, String bucketName, String ossFile, String sourceFile, ReadableMap options, final Promise promise) {
+    public void asyncUpload(final ReactContext context, String bucketName, final String ossFile, String sourceFile, ReadableMap options, final Promise promise) {
         // Content to file:// start
         Uri selectedVideoUri = Uri.parse(sourceFile);
 
@@ -138,7 +138,7 @@ public class AliyunUploadManager {
      * @param options
      * @param promise
      */
-    public void asyncAppendObject(final ReactContext context,String bucketName,String objectKey,String uploadFilePath,ReadableMap options,final Promise promise) {
+    public void asyncAppendObject(final ReactContext context,String bucketName, final String objectKey,String uploadFilePath,ReadableMap options,final Promise promise) {
 
         // Content to file:// start
         Uri selectedVideoUri = Uri.parse(uploadFilePath);
@@ -212,7 +212,7 @@ public class AliyunUploadManager {
      * @param options
      * @param promise
      */
-    public void asyncResumableUpload(final ReactContext context, String bucketName, String objectKey, String uploadFilePath, ReadableMap options, final Promise promise) {
+    public void asyncResumableUpload(final ReactContext context, String bucketName, final String objectKey, String uploadFilePath, ReadableMap options, final Promise promise) {
 
         ResumableUploadRequest request = new ResumableUploadRequest(bucketName, objectKey, uploadFilePath);
 
