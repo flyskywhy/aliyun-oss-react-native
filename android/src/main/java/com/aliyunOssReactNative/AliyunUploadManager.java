@@ -85,7 +85,7 @@ public class AliyunUploadManager {
             cursor.moveToFirst();
             sourceFile = cursor.getString(column_index);
         } catch (Exception e) {
-            sourceFile = FileUtils.getFilePathFromURI(context.getCurrentActivity(), selectedVideoUri);
+            // sourceFile = FileUtils.getFilePathFromURI(context.getCurrentActivity(), selectedVideoUri);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -154,7 +154,7 @@ public class AliyunUploadManager {
             cursor.moveToFirst();
             uploadFilePath = cursor.getString(column_index);
         } catch (Exception e) {
-            uploadFilePath = FileUtils.getFilePathFromURI(context.getCurrentActivity(), selectedVideoUri);
+            // uploadFilePath = FileUtils.getFilePathFromURI(context.getCurrentActivity(), selectedVideoUri);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -292,7 +292,7 @@ public class AliyunUploadManager {
             cursor.moveToFirst();
             filepath = cursor.getString(column_index);
         } catch (Exception e) {
-            filepath = FileUtils.getFilePathFromURI(context.getCurrentActivity(), selectedVideoUri);
+            // filepath = FileUtils.getFilePathFromURI(context.getCurrentActivity(), selectedVideoUri);
         } finally {
             if (cursor != null) {
                 cursor.close();
