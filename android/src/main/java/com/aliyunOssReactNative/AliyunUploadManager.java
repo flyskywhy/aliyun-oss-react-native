@@ -48,10 +48,45 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.*;
+
+class ThrottleTask {
+  private Timer timer;
+  private TimerTask lastTimerTask;
+  private Long delay;
+  private boolean needWait=false;
+  ExecutorService es = Executors.newSingleThreadExecutor();
+
+  public ThrottleTask(Long delay) {
+      this.delay = delay;
+      this.timer = new Timer();
+  }
+
+  public void run(final Runnable runnable, boolean forceRun){
+      if(!needWait || forceRun){
+          needWait=true;
+          if (forceRun) {
+            lastTimerTask.cancel();
+          }
+          lastTimerTask = new TimerTask() {
+              @Override
+              public void run() {
+                  needWait=false;
+              }
+          };
+          timer.schedule(lastTimerTask, delay);
+          es.submit(runnable);
+      }
+  }
+}
 
 public class AliyunUploadManager {
 
     private OSS mOSS;
+
+    private ThrottleTask emitUploadProgressTask = new ThrottleTask(20L);
 
     /**
      * AliyunUploadManager contructor
@@ -104,12 +139,17 @@ public class AliyunUploadManager {
                 Log.d("PutObject", "currentSize: " + currentSize + " totalSize: " + totalSize);
                 String str_currentSize = Long.toString(currentSize);
                 String str_totalSize = Long.toString(totalSize);
-                WritableMap onProgressValueData = Arguments.createMap();
+                final WritableMap onProgressValueData = Arguments.createMap();
                 onProgressValueData.putString("currentSize", str_currentSize);
                 onProgressValueData.putString("totalSize", str_totalSize);
                 onProgressValueData.putString("id", ossFile);
-                context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                        .emit("uploadProgress", onProgressValueData);
+                boolean hasFinished = currentSize == totalSize;
+                emitUploadProgressTask.run(new Runnable() {
+                  @Override
+                  public void run() {
+                    context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("uploadProgress", onProgressValueData);
+                  }
+                }, hasFinished);
             }
         });
 
@@ -177,12 +217,17 @@ public class AliyunUploadManager {
                 // add event
                 String str_currentSize = Long.toString(currentSize);
                 String str_totalSize = Long.toString(totalSize);
-                WritableMap onProgressValueData = Arguments.createMap();
+                final WritableMap onProgressValueData = Arguments.createMap();
                 onProgressValueData.putString("currentSize", str_currentSize);
                 onProgressValueData.putString("totalSize", str_totalSize);
                 onProgressValueData.putString("id", objectKey);
-                context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                        .emit("uploadProgress", onProgressValueData);
+                boolean hasFinished = currentSize == totalSize;
+                emitUploadProgressTask.run(new Runnable() {
+                  @Override
+                  public void run() {
+                    context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("uploadProgress", onProgressValueData);
+                  }
+                }, hasFinished);
             }
         });
 
@@ -223,12 +268,17 @@ public class AliyunUploadManager {
                 // add event
                 String str_currentSize = Long.toString(currentSize);
                 String str_totalSize = Long.toString(totalSize);
-                WritableMap onProgressValueData = Arguments.createMap();
+                final WritableMap onProgressValueData = Arguments.createMap();
                 onProgressValueData.putString("currentSize", str_currentSize);
                 onProgressValueData.putString("totalSize", str_totalSize);
                 onProgressValueData.putString("id", objectKey);
-                context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                        .emit("uploadProgress", onProgressValueData);
+                boolean hasFinished = currentSize == totalSize;
+                emitUploadProgressTask.run(new Runnable() {
+                  @Override
+                  public void run() {
+                    context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("uploadProgress", onProgressValueData);
+                  }
+                }, hasFinished);
             }
         });
 
