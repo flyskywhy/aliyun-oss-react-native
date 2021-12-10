@@ -135,22 +135,23 @@
             PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
             options.networkAccessAllowed = YES;
             [imageManager requestImageDataForAsset:asset options:options resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
-                if ([dataUTI isEqualToString:(__bridge NSString *)kUTTypeJPEG]) {
-                    handler(imageData);
-                } else {
-                    //if the image UTI is not JPEG, then do the convertion to make sure its compatibility
-                    CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
-                    NSDictionary *imageInfo = (__bridge NSDictionary*)CGImageSourceCopyPropertiesAtIndex(source, 0, NULL);
-                    NSDictionary *metadata = [imageInfo copy];
+                handler(imageData);
+                // if ([dataUTI isEqualToString:(__bridge NSString *)kUTTypeJPEG]) {
+                //     handler(imageData);
+                // } else {
+                //     //if the image UTI is not JPEG, then do the convertion to make sure its compatibility
+                //     CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
+                //     NSDictionary *imageInfo = (__bridge NSDictionary*)CGImageSourceCopyPropertiesAtIndex(source, 0, NULL);
+                //     NSDictionary *metadata = [imageInfo copy];
                     
-                    NSMutableData *imageDataJPEG = [NSMutableData data];
+                //     NSMutableData *imageDataJPEG = [NSMutableData data];
                     
-                    CGImageDestinationRef destination = CGImageDestinationCreateWithData((__bridge CFMutableDataRef)imageDataJPEG, kUTTypeJPEG, 1, NULL);
-                    CGImageDestinationAddImageFromSource(destination, source, 0, (__bridge CFDictionaryRef)metadata);
-                    CGImageDestinationFinalize(destination);
+                //     CGImageDestinationRef destination = CGImageDestinationCreateWithData((__bridge CFMutableDataRef)imageDataJPEG, kUTTypeJPEG, 1, NULL);
+                //     CGImageDestinationAddImageFromSource(destination, source, 0, (__bridge CFDictionaryRef)metadata);
+                //     CGImageDestinationFinalize(destination);
                     
-                    handler([NSData dataWithData:imageDataJPEG]);
-                }
+                //     handler([NSData dataWithData:imageDataJPEG]);
+                // }
             }];
             break;
         }
