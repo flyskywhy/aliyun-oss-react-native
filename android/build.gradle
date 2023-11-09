@@ -32,6 +32,6 @@ repositories {
 
 dependencies {
     compile 'com.facebook.react:react-native:+'
-    compile 'com.aliyun.dpa:oss-android-sdk:+'
+    compile 'com.aliyun.dpa:oss-android-sdk:2.9.15'
 }
   
