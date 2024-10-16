@@ -70,7 +70,7 @@ public class AliyunDownloadManager {
                         cacheFile.createNewFile();
                     } catch (IOException e) {
                         e.printStackTrace();
-                        promise.reject("DownloadFaile", e);
+                        promise.reject("DownloadFail", e);
                     }
                 }
                 long readSize = 0;
@@ -78,10 +78,10 @@ public class AliyunDownloadManager {
                     outputStream = new FileOutputStream(cacheFile, false);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                    promise.reject("DownloadFaile", e);
+                    promise.reject("DownloadFail", e);
                 }
                 if (resultLength == -1) {
-                    promise.reject("DownloadFaile", "message:lengtherror");
+                    promise.reject("DownloadFail", "message:lengtherror");
                 }
 
                 try {
@@ -101,26 +101,26 @@ public class AliyunDownloadManager {
 
                         } catch (IOException e) {
                             e.printStackTrace();
-                            promise.reject("DownloadFaile", e);
+                            promise.reject("DownloadFail", e);
                         }
                     }
                     outputStream.flush();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    promise.reject("DownloadFaile", e);
+                    promise.reject("DownloadFail", e);
                 } finally {
                     if (outputStream != null) {
                         try {
                             outputStream.close();
                         } catch (IOException e) {
-                            promise.reject("DownloadFaile", e);
+                            promise.reject("DownloadFail", e);
                         }
                     }
                     if (inputStream != null) {
                         try {
                             inputStream.close();
                         } catch (IOException e) {
-                            promise.reject("DownloadFaile", e);
+                            promise.reject("DownloadFail", e);
                         }
                     }
                     promise.resolve(downloadToFileURL);
