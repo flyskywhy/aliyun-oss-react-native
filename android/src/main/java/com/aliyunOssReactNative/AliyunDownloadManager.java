@@ -1,6 +1,6 @@
 package com.aliyunOssReactNative;
 
-import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.sdk.android.oss.ClientException;
@@ -35,8 +35,8 @@ public class AliyunDownloadManager {
         mOSS = oss;
     }
 
-    public void asyncDownload(final ReactContext context,String bucketName, String ossFile, String updateDate, ReadableMap options, final Promise promise) {
-        GetObjectRequest get = new GetObjectRequest(bucketName, ossFile);
+    public void asyncDownload(final ReactContext context, String bucketName, String objectKey, final String filepath, ReadableMap options, final Promise promise) {
+        GetObjectRequest get = new GetObjectRequest(bucketName, objectKey);
 
         String xOssPositon = options.getString("x-oss-process");
         //process image
@@ -55,12 +55,15 @@ public class AliyunDownloadManager {
                 int len;
 
                 FileOutputStream outputStream = null;
-                String localImgURL = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        "/ImgCache/" +
-                        System.currentTimeMillis() +
-                        ".jpg";
-                Log.d("localImgURL", localImgURL);
-                File cacheFile = new File(localImgURL);
+                String downloadToFileURL;
+                if (!TextUtils.isEmpty(filepath)) {
+                    downloadToFileURL = filepath + File.separator + objectKey;
+                } else {
+                    downloadToFileURL = context.getFilesDir().getAbsolutePath() + File.separator + objectKey;
+                }
+
+                Log.d("downloadToFileURL", downloadToFileURL);
+                File cacheFile = new File(downloadToFileURL);
                 if (!cacheFile.exists()) {
                     cacheFile.getParentFile().mkdirs();
                     try {
@@ -70,9 +73,9 @@ public class AliyunDownloadManager {
                         promise.reject("DownloadFaile", e);
                     }
                 }
-                long readSize = cacheFile.length();
+                long readSize = 0;
                 try {
-                    outputStream = new FileOutputStream(cacheFile, true);
+                    outputStream = new FileOutputStream(cacheFile, false);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                     promise.reject("DownloadFaile", e);
@@ -120,7 +123,7 @@ public class AliyunDownloadManager {
                             promise.reject("DownloadFaile", e);
                         }
                     }
-                    promise.resolve(localImgURL);
+                    promise.resolve(downloadToFileURL);
                 }
             }
 
