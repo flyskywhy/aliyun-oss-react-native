@@ -1,7 +1,7 @@
 
 buildscript {
     repositories {
-        jcenter()
+        maven {url 'https://maven.aliyun.com/repository/jcenter'}
     }
 
     dependencies {
@@ -34,4 +34,4 @@ dependencies {
     implementation 'com.facebook.react:react-native:+'
     implementation 'com.aliyun.dpa:oss-android-sdk:+'
 }
-  
+
