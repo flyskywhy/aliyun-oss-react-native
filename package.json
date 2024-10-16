@@ -1,14 +1,15 @@
 {
-  "name": "aliyun-oss-react-native",
+  "name": "@flyskywhy/aliyun-oss-react-native",
   "version": "1.0.0-alpha.7",
   "description": "React Native SDK for aliyun object storage service",
+  "private": false,
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aliyun/aliyun-oss-react-native.git"
+    "url": "git+https://github.com/flyskywhy/aliyun-oss-react-native.git"
   },
   "keywords": [
     "oss",
@@ -19,7 +20,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/aliyun/aliyun-oss-react-native/issues"
+    "url": "https://github.com/flyskywhy/aliyun-oss-react-native/issues"
   },
-  "homepage": "https://github.com/aliyun/aliyun-oss-react-native.git#readme"
+  "homepage": "https://github.com/flyskywhy/aliyun-oss-react-native.git#readme"
 }

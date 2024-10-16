@@ -1,6 +1,13 @@
 # Alibaba Cloud OSS SDK for React Native
 
-## [README of Chinese](https://github.com/aliyun/aliyun-oss-react-native/blob/master/README-CN.md)
+# @flyskywhy/aliyun-oss-react-native
+
+[![npm version](http://img.shields.io/npm/v/@flyskywhy/aliyun-oss-react-native.svg?style=flat-square)](https://npmjs.org/package/@flyskywhy/aliyun-oss-react-native "View this project on npm")
+[![npm downloads](http://img.shields.io/npm/dm/@flyskywhy/aliyun-oss-react-native.svg?style=flat-square)](https://npmjs.org/package/@flyskywhy/aliyun-oss-react-native "View this project on npm")
+[![npm licence](http://img.shields.io/npm/l/@flyskywhy/aliyun-oss-react-native.svg?style=flat-square)](https://npmjs.org/package/@flyskywhy/aliyun-oss-react-native "View this project on npm")
+[![Platform](https://img.shields.io/badge/platform-ios%20%7C%20android-989898.svg?style=flat-square)](https://npmjs.org/package/@flyskywhy/aliyun-oss-react-native "View this project on npm")
+
+## [README of Chinese](https://github.com/flyskywhy/aliyun-oss-react-native/blob/master/README-CN.md)
 
 ## Introduction
 
@@ -37,12 +44,12 @@ NOTE: THIS PACKAGE IS NOW BUILT FOR REACT NATIVE 0.40 OR GREATER
 * npm
 
 ```
-npm install aliyun-oss-react-native --save
+npm install @flyskywhy/aliyun-oss-react-native --save
 ```
 * yarn
 
 ```
-yarn install aliyun-oss-react-native --save
+yarn install @flyskywhy/aliyun-oss-react-native --save
 ```
 
 ### Automatic Installation
@@ -50,7 +57,7 @@ yarn install aliyun-oss-react-native --save
 run `react-native link` in the react native project
 
 ```
-react-native link aliyun-oss-react-native
+react-native link @flyskywhy/aliyun-oss-react-native
 ```
 
 `Note`：for suppport IPv6-Only networkd，you need to require :
@@ -67,27 +74,27 @@ react-native link aliyun-oss-react-native
 - **CocoaPods**
 
 ```
-pod 'aliyun-oss-react-native', :path => '../node_modules/aliyun-oss-react-native'
+pod 'aliyun-oss-react-native', :path => '../node_modules/@flyskywhy/aliyun-oss-react-native'
 ````
 
 - **no CocoaPods**
 
-1. In the XCode's "Project navigator", right click on your project's Libraries folder ➜ `Add Files to <...>` Go to `node_modules` ➜ `aliyun-oss-react-native` ➜ `ios` ➜ select `RNAliyunOSS.xcodeproj`
+1. In the XCode's "Project navigator", right click on your project's Libraries folder ➜ `Add Files to <...>` Go to `node_modules` ➜ `@flyskywhy` ➜ `aliyun-oss-react-native` ➜ `ios` ➜ select `RNAliyunOSS.xcodeproj`
 2. Add `libRNAliyunOSS.a` to `Build Phases -> Link Binary With Libraries`
-3. In XCode, in the project navigator, right click `Frameworks` ➜ `Add Files to [your project's name]`. Go to `node_modules` ➜ `aliyun-oss-react-native` ➜ `AliyunSDK`. Add `AliyunOSSiOS.framework`, and select *Copy items if needed* in the pop-up box.
+3. In XCode, in the project navigator, right click `Frameworks` ➜ `Add Files to [your project's name]`. Go to `node_modules` ➜ `@flyskywhy` ➜ `aliyun-oss-react-native` ➜ `AliyunSDK`. Add `AliyunOSSiOS.framework`, and select *Copy items if needed* in the pop-up box.
 
 #### Android
 1. Add the following lines to `android/settings.gradle`:
 
 ```gradle
 include ':aliyun-oss-react-native'
-project(':aliyun-oss-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/aliyun-oss-react-native/android')
+project(':aliyun-oss-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/@flyskywhy/aliyun-oss-react-native/android')
 ```
 
 2. Add the compile line to the dependencies in `android/app/build.gradle`:
 ```gradle
 dependencies {
-  compile project(':aliyun-oss-react-native')
+  implementation project(':aliyun-oss-react-native')
 }
 ```
 3. Add the required permissions in `AndroidManifest.xml`:
@@ -119,7 +126,7 @@ Now ,all the API returns Promise Object exception init OSS Client API and enable
 
 * step-1:import AliyunOSS
 ```
-import AliyunOSS from 'aliyun-oss-react-native'
+import AliyunOSS from '@flyskywhy/aliyun-oss-react-native'
 ```
 * step-2:open debug mode  (optional)
 
@@ -350,10 +357,10 @@ parameters:
 
 - name {String} bucket name
 - options {Object}
-  - [delimiter] {String} 
+  - [delimiter] {String}
   - [prefix] {String} search buckets using `prefix` key
   - [marker] {String} search start from `marker`, including `marker` key
-  - [max-keys] {String|Number} max buckets, default is `100`, limit to `1000` 
+  - [max-keys] {String|Number} max buckets, default is `100`, limit to `1000`
 ```
  AliyunOSS.asyncListObjects('luozhang002', {
     prefix:'xxxx'
@@ -400,7 +407,7 @@ In the repository, we prodive RN SDK DEMO in the Example folder including andrio
 * step-1:clone the project and install some dependencies
 
 ```
-1. git clone https://github.com/aliyun/aliyun-oss-react-native.git
+1. git clone https://github.com/flyskywhy/aliyun-oss-react-native.git
 2. cd Example
 3. npm install
 ```
