@@ -34,7 +34,7 @@ export default AliyunOSS = {
     enableDevMode() {
         RNAliyunOSS.enableDevMode();
     },
-    
+
     /**
      * Initialize the OSS Client
      * Mode: PlainTextAKSK
@@ -65,7 +65,7 @@ export default AliyunOSS = {
      */
     initWithServerSTS(server, endPoint, configuration = conf) {
         RNAliyunOSS.initWithServerSTS(server, endPoint, configuration);
-    },    
+    },
 
     /**
      * Asynchronously uploading
@@ -75,7 +75,7 @@ export default AliyunOSS = {
     },
 
      /**
-     * Asynchronously 
+     * Asynchronously
      */
     asyncResumableUpload(bucketName, objectKey, filepath='',options={}) {
         return RNAliyunOSS.asyncResumableUpload(bucketName, objectKey, filepath,options);
@@ -89,7 +89,7 @@ export default AliyunOSS = {
     },
 
     /**
-     * Asynchronously 
+     * Asynchronously
      */
     initMultipartUpload(bucketName,objectKey) {
         return RNAliyunOSS.initMultipartUpload(bucketName, objectKey);
@@ -121,7 +121,7 @@ export default AliyunOSS = {
     asyncDownload(bucketName, objectKey, filepath='',options = imageXOssProcess) {
         return RNAliyunOSS.asyncDownload(bucketName, objectKey, filepath,options);
     },
-    
+
     /*
     asyncListBuckets
     */
@@ -136,14 +136,14 @@ export default AliyunOSS = {
 
     asyncHeadObject (bucketName, objectKey) {
         return RNAliyunOSS.asyncHeadObject(bucketName,objectKey)
-    }, 
+    },
 
-    
+
     /**
      * Asynchronously getAsyncObjects
      */
 
-    asyncListObjects (bucketName,options) {
+    asyncListObjects (bucketName, options = {}) {
         return RNAliyunOSS.asyncListObjects(bucketName,options)
     },
 
@@ -177,7 +177,7 @@ export default AliyunOSS = {
      */
     asyncCreateBucket (bucketName,acl="private",region) {
         return RNAliyunOSS.asyncCreateBucket(bucketName,acl,region)
-    }, 
+    },
 
     /**
      * Asynchronously getBucketACL
@@ -198,7 +198,7 @@ export default AliyunOSS = {
      */
     asyncDeleteBucket (bucketName) {
         return RNAliyunOSS.asyncDeleteBucket(bucketName)
-    },   
+    },
 
     /**
      * event listener for native upload/download event
