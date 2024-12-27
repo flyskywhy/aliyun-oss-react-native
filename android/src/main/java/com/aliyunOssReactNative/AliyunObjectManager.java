@@ -107,11 +107,11 @@ public class AliyunObjectManager {
         }
 
         if(options.hasKey("marker")) {
-            listObjects.setMarker(options.getString("delimiter"));
+            listObjects.setMarker(options.getString("marker"));
         }
 
         if(options.hasKey("maxkeys")) {
-            listObjects.setMaxKeys(options.getInt(String.valueOf(options.getInt("maxkeys"))));
+            listObjects.setMaxKeys((options.getInt("maxkeys")));
         }
 
         // set success 、set fail 、set async request
