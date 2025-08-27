@@ -328,7 +328,7 @@ public class RNAliyunOssModule extends ReactContextBaseJavaModule {
     /**
      * asyncListObjects ReactMethod
      * @param bucketName
-     * @param prefix
+     * @param options
      * @param promise
      */
     @ReactMethod

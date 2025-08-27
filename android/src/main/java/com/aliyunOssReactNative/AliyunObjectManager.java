@@ -92,7 +92,7 @@ public class AliyunObjectManager {
     /**
      * asyncListObjects
      * @param bucketName
-     * @param opitons {delimiter|prefix|marker|maxkeys}
+     * @param opitons {delimiter|prefix|marker|maxKeys}
      * @param promise
      */
     public void asyncListObjects(String bucketName, ReadableMap options, final Promise promise) {
@@ -110,8 +110,8 @@ public class AliyunObjectManager {
             listObjects.setMarker(options.getString("marker"));
         }
 
-        if(options.hasKey("maxkeys")) {
-            listObjects.setMaxKeys((options.getInt("maxkeys")));
+        if(options.hasKey("maxKeys")) {
+            listObjects.setMaxKeys((options.getInt("maxKeys")));
         }
 
         // set success 、set fail 、set async request
