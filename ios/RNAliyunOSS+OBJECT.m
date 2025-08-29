@@ -33,7 +33,7 @@ RCT_REMAP_METHOD(asyncListObjects, bucketName:(NSString*)bucketName options:(NSD
     }
 
     if([options objectForKey:@"maxKeys"]) {
-        getBucket.maxKeys = [options objectForKey:@"maxKeys"];
+        getBucket.maxKeys = [[options objectForKey:@"maxKeys"] intValue];
     }
 
     OSSTask * getBucketTask = [self.client getBucket:getBucket];
