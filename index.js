@@ -141,12 +141,56 @@ export default AliyunOSS = {
 
     /**
      * Asynchronously getAsyncObjects
+     * opitons {delimiter|prefix|marker|maxKeys is for AliyunOssSdk, isReturnMapMap is for this pacakge}
      */
 
     asyncListObjects (bucketName, options = {}) {
         return RNAliyunOSS.asyncListObjects(bucketName,options)
     },
 
+    /**
+     * Asynchronously get all objects
+     * opitons {delimiter|prefix|maxKeys}
+     */
+
+    asyncGetAllObjects: async (bucketName, options = {}) => {
+        let allObjects = [];
+        let nextMarker;
+        do {
+            try {
+                let result = await RNAliyunOSS.asyncListObjects(
+                    bucketName,
+                    nextMarker
+                        ? {
+                              ...options,
+                              marker: nextMarker,
+                              isReturnMapMap: true,
+                          }
+                        : {
+                              ...options,
+                              isReturnMapMap: true,
+                          },
+                );
+
+                const currentObjects = Platform.select({
+                    android: () => Object.values(result.contents),
+                    ios: () => result.contents.map(object => object.Key),
+                    default: () => [],
+                })();
+                allObjects = allObjects.concat(currentObjects);
+                if (result.isCompleted || currentObjects.length === 0) {
+                    break;
+                } else {
+                    nextMarker = result.nextMarker;
+                }
+            } catch (err) {
+              console.error(err);
+              break;
+            }
+        } while (true);
+
+        return allObjects;
+    },
 
     /**
      * Asynchronously asyncCopyObject

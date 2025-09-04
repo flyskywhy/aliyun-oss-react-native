@@ -353,6 +353,9 @@ AliyunOSS.asyncListBuckets().then((e) => {
 
 list objects in some conditions
 
+the return contents format is different on Android and iOS, you can ref to
+`Platform.select` in `index.js`
+
 parameters:
 
 - name {String} bucket name
@@ -360,9 +363,30 @@ parameters:
   - [delimiter] {String}
   - [prefix] {String} search buckets using `prefix` key
   - [marker] {String} search start from `marker`, including `marker` key
-  - [max-keys] {String|Number} max buckets, default is `100`, limit to `1000`
+  - [maxKeys] {Number} max objects, default is `100`, limit to `1000`
+  - [isReturnMapMap] {Boolean} customise return format, default is `false`, on Android, will return `{objectKey123: 'foo.bar'}`, if `true`, can work with `asyncGetAllObjects()`, will return `{contents: {objectKey123: 'foo.bar'}, isCompleted: false, nextMarker: 'goo.bar'}`
 ```
  AliyunOSS.asyncListObjects('luozhang002', {
+    prefix:'xxxx'
+}).then((e)=>{
+    console.log(e)
+  }).catch((e)=>{
+     console.log(e)
+  })
+```
+### asyncGetAllObjects
+
+list all objects in some conditions
+
+parameters:
+
+- name {String} bucket name
+- options {Object}
+  - [delimiter] {String}
+  - [prefix] {String} search buckets using `prefix` key
+  - [maxKeys] {Number} max objects in each asyncListObjects() call, default is `100`, limit to `1000`
+```
+ AliyunOSS.asyncGetAllObjects('luozhang002', {
     prefix:'xxxx'
 }).then((e)=>{
     console.log(e)

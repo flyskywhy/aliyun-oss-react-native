@@ -114,20 +114,33 @@ public class AliyunObjectManager {
             listObjects.setMaxKeys((options.getInt("maxKeys")));
         }
 
+        final boolean isReturnMapMap = options.hasKey("isReturnMapMap")
+          ? options.getBoolean("isReturnMapMap")
+          : false;
+
         // set success 、set fail 、set async request
         OSSAsyncTask task = mOSS.asyncListObjects(listObjects, new OSSCompletedCallback<ListObjectsRequest, ListObjectsResult>() {
             @Override
             public void onSuccess(ListObjectsRequest request, ListObjectsResult result) {
                 Log.d("AyncListObjects", "Success!");
-                WritableMap map = Arguments.createMap();
+                WritableMap contentsMap = Arguments.createMap();
 
                 for (int i = 0; i < result.getObjectSummaries().size(); i++) {
-                    map.putString("objectKey"+i , result.getObjectSummaries().get(i).getKey());
+                    contentsMap.putString("objectKey"+i , result.getObjectSummaries().get(i).getKey());
                     Log.d("AyncListObjects", "object: " + result.getObjectSummaries().get(i).getKey() + " "
                             + result.getObjectSummaries().get(i).getETag() + " "
                             + result.getObjectSummaries().get(i).getLastModified());
                 }
-                promise.resolve(map);
+
+                if (isReturnMapMap) {
+                    WritableMap map = Arguments.createMap();
+                    map.putMap("contents", contentsMap);
+                    map.putBoolean("isCompleted", !result.isTruncated());
+                    map.putString("nextMarker", result.getNextMarker());
+                    promise.resolve(map);
+                } else {
+                    promise.resolve(contentsMap);
+                }
             }
 
             @Override
