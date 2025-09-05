@@ -36,11 +36,23 @@ RCT_REMAP_METHOD(asyncListObjects, bucketName:(NSString*)bucketName options:(NSD
         getBucket.maxKeys = [[options objectForKey:@"maxKeys"] intValue];
     }
 
+    bool isReturnMapMap = [options objectForKey:@"isReturnMapMap"]
+      ? [[options objectForKey:@"isReturnMapMap"] boolValue]
+      : false;
+
     OSSTask * getBucketTask = [self.client getBucket:getBucket];
     [getBucketTask continueWithBlock:^id(OSSTask *task) {
         if (!task.error) {
             OSSGetBucketResult * result = task.result;
-            resolve(result.contents);
+            if (isReturnMapMap) {
+                NSMutableDictionary *map = [[NSMutableDictionary alloc] init];
+                [map setObject:result.contents forKey:@"contents"];
+                [map setObject:[NSNumber numberWithBool:!result.isTruncated ]forKey:@"isCompleted"];
+                [map setObject:[NSString stringWithFormat:@"%@", result.nextMarker] forKey:@"nextMarker"];
+                resolve(map);
+            } else {
+                resolve(result.contents);
+            }
         } else {
             NSLog(@"get bucket failed, error: %@", task.error);
             reject(@"Error",@"get bucket failed",task.error);
